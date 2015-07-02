@@ -1,0 +1,107 @@
+<div class="container-fluid">
+    <div class="row">
+        <h1>Tabela de preços SEM o FaleMais <span class="label label-info"><img class="logo" src="images/scup-logo-orange.svg" width="95" height="20"/></span></h1>
+        </br>
+
+        <div class="col-xs-12" style="margin-top: 40px;">
+            Normalmente um cliente ScupTel pode fazer uma chamada de uma cidade para outra pagando
+            uma tarifa fixa por minuto, com o preço sendo pré definido em na lista abaixo com os códigos
+            DDDs de origem e destino.
+        </div>
+
+        <div class="col-xs-12" style="margin-top: 30px;">
+            <table class="table table-bordered table-hover">
+                <tr style="background-color: #d0e9c6">
+                    <th class="text-center">Origem</th>
+                    <th class="text-center">Destino</th>
+                    <th class="text-center">$/min</th>
+                </tr>
+                <?php foreach ($this->taxas as $value) { ?>
+                    <tr>
+                        <td class="text-center"><?php echo $value['origem']; ?></td>
+                        <td class="text-center"><?php echo $value['destino']; ?></td>
+                        <td class="text-center"><?php echo $value['taxa']; ?></td>
+                    </tr>
+                <?php } ?>
+            </table>
+        </div>
+
+        <div class="col-xs-12" style="margin-top: 15px;">
+            Com o novo produto FaleMais da ScupTel o cliente adquire um plano e pode falar de graça até
+            um determinado tempo (em minutos) e só paga os minutos excedentes.<p>
+                Os minutos excedentes tem um acrescimo de 10% sobre a tarifa normal do minuto. 
+                Os planos são FaleMais 30 (30 minutos), FaleMais 60 (60 minutos) e FaleMais 120 (120 minutos).
+        </div>
+        <div class="page-header">
+            <a name="SIMULAR"></a> 
+            <h1>Simular Ligação (DDD) para (DDD) Utilizando o FaleMais</h1>
+        </div>
+        <form id="form" action='javascript: enviarAjax("falemais/tax");'>
+            <div class="form-group col-xs-2">
+                <label>Origem</label>
+                <select class="form-control" id="origem" name="origem">
+                    <option>Selecione DDD</option>
+                    <?php foreach ($this->ddd as $value) { ?>
+                        <option value="<?php echo $value ?>"><?php echo $value ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+
+            <div class="form-group col-xs-2">
+                <label>Destino</label>
+                <select class="form-control" id="destino" name="destino">
+                    <option>Selecione DDD</option>
+                    <?php foreach ($this->ddd as $value) { ?>
+                        <option value="<?php echo $value ?>"><?php echo $value ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+
+            <div class="form-group col-xs-2">
+                <label>Tempo (Em minutos)</label>
+                <div class="input-group">
+                    <input class="form-control timepicker" type="number" id="tempo" name="tempo" onkeypress='return SomenteNumero(event)'>
+                    <div class="input-group-addon">
+                        Min
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-4">
+                <label>Plano </label>
+                <select class="form-control" id="plano" name="plano">
+                    <?php foreach ($this->planos as $value) { ?>
+                        <option value="<?php echo $value['minutos'] ?>"><?php echo $value['plano']; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+
+            <div class="form-group col-xs-2" style="margin-top: 20px">
+                <button  class="btn btn-principal">Simular</button>
+            </div>
+        </form>
+
+        <div class="col-xs-12" style="margin-top: 30px;" >
+            <div id="sub"></div>
+            <table class="table table-bordered table-hover">
+                <tr style="background-color: #d0e9c6">
+                    <th class="text-center">Origem</th>
+                    <th class="text-center">Destino</th>
+                    <th class="text-center">Tempo</th>
+                    <th class="text-center">Plano FaleMais</th>
+                    <th class="text-center">Com FaleMais</th>
+                    <th class="text-center">Sem FaleMais</th>
+                </tr>
+                <tr>
+                    <td class="text-center" id="origem_r"> </td>
+                    <td class="text-center" id="destino_r"> </td>
+                    <td class="text-center" id="tempo_r"> </td>
+                    <td class="text-center" id="plano_r"> </td>
+                    <td class="text-center" id="falaMais_r"> </td>
+                    <td class="text-center" id="SfalaMais_r"> </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
